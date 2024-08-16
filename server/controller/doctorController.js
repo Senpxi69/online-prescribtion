@@ -46,32 +46,32 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const doctor = await Doctor.findOne({ email })
 
         if (!email || !password) {
             return res.status(400).json({ msg: "All fields are required", status: false });
         }
 
+        const doctor = await Doctor.findOne({ email });
+
         if (!doctor) {
-            return res.json({ msg: "invalid credentials" });
+            return res.status(401).json({ msg: "Invalid credentials", status: false });
         }
 
         const isPasswordValid = await bcrypt.compare(password, doctor.password);
-
         if (!isPasswordValid) {
-            return res.json({ msg: "incorrect doctorname or password", status: false });
+            return res.status(401).json({ msg: "Incorrect email or password", status: false });
         }
 
-        delete doctor.password;
+        const token = createToken({ _id: doctor._id });
 
-        const token = createToken({ _id: doctor._id })
+        return res.status(200).json({ token, doctor: doctor._id, status: true });
 
-        return res.json({ token, doctor: doctor._id, status: true });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ msg: 'Sign-in failed' });
+        res.status(500).json({ msg: 'Sign-in failed', status: false });
     }
 };
+
 
 
 exports.getProfile = async (req, res) => {

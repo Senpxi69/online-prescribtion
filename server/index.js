@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const doctorRoutes = require('./routes/doctorRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 const consultationRoutes = require('./routes/consultationRoutes')
-const prescribtionRoutes = require('./routes/prescribtionRoutes')
+const prescriptionRoutes = require('./routes/prescribtionRoutes')
 const cors = require('cors')
 
 const app = express();
@@ -23,7 +23,7 @@ mongoose.connect("mongodb://localhost:27017/online-prescription", {
 app.use('/doctors', doctorRoutes)
 app.use('/patients', patientRoutes)
 app.use('/consultations', consultationRoutes)
-app.use('/prescribtions', prescribtionRoutes)
+app.use('/prescriptions', prescriptionRoutes)
 
 app.listen(port, () => {
     console.log(`app is running on port ${port}`)

@@ -6,6 +6,10 @@ const consultationSchema = new mongoose.Schema({
         ref: 'Patient', // Reference to the Patient model
         required: true,
     },
+    prescription: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Prescription'
+    },
     doctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor', // Reference to the Doctor model

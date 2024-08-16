@@ -71,7 +71,11 @@ exports.findConsultationById = async (req, res) => {
             .populate({
                 path: 'patient',
                 select: 'name age profilePicture',
-            });
+            })
+            .populate({
+                path: 'prescription',
+                select: 'isPrescribed'
+            });;
 
         if (!consultation) {
             return res.status(404).json({ msg: 'Consultation not found' });

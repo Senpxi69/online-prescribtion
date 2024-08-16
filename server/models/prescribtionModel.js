@@ -11,6 +11,10 @@ const prescriptionSchema = new mongoose.Schema({
         ref: 'Doctor',
         required: true,
     },
+    isPrescribed: {
+        type: Boolean,
+        default: false
+    },
     patient: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Patient',
